@@ -61,7 +61,7 @@ const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
 
 const LAT = (latFirst, latSecond) => {
   latFirst = Math.min(Math.abs(latFirst), Math.abs(latSecond));
-  latSecond = Math.max(Math.abs(latFirst), Math.abs(latFirst));
+  latSecond = Math.max(Math.abs(latFirst), Math.abs(latSecond));
 
   const latresult = Math.random() * (latSecond - latFirst) + latFirst;
   return latresult.toFixed(5);
@@ -86,5 +86,5 @@ const createClient = () => ({
 
 const clientBooking = new Array(CLIENT_COUNT).fill(null).map(() => createClient());
 
-clientBooking;
-// console.log(clientBooking);
+// clientBooking;
+console.log(clientBooking);
