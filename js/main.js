@@ -75,19 +75,16 @@ const LNG = (lngFirst, lngSecond) => {
   return result.toFixed(5);
 };
 const CLIENT_COUNT = 10;
-const getRandomArrayElements = (elements) => {
-  return elements[Math.floor(Math.random() * elements.length)]
-};
+const getRandomArrayElements = (elements) => elements[Math.floor(Math.random() * elements.length)];
 
 
-const createClient = () => {
-  return {
-    author: getRandomArrayElements(AVATAR),
-    offer: TITLE + ' ' + ADDRESS + ', ' + PRICE(50) + ' $, ' + getRandomArrayElements(TYPE) + ', ' + ROOMS(50) + ' комнат, ' + GUESTS(20) + ' гостей, ' + getRandomArrayElements(CHECKIN) + ', ' + getRandomArrayElements(CHECKOUT) + ', ' + getRandomArrayElements(FEATURES) + ' ' + DESCRIPTION + ' ' + getRandomArrayElements(PHOTOS),
-    location: LAT(35.65000, 35.70000) + ', ' + LNG(139.70000, 139.80000),
-  };
-};
+const createClient = () => ({
+  author: getRandomArrayElements(AVATAR),
+  offer: `${TITLE} ${  ADDRESS  }, ${  PRICE(50)  } $, ${  getRandomArrayElements(TYPE)  }, ${  ROOMS(50)  } комнат, ${  GUESTS(20)  } гостей, ${  getRandomArrayElements(CHECKIN)  }, ${  getRandomArrayElements(CHECKOUT)  }, ${  getRandomArrayElements(FEATURES)  } ${  DESCRIPTION  } ${  getRandomArrayElements(PHOTOS)}`,
+  location: `${LAT(35.65000, 35.70000)  }, ${  LNG(139.70000, 139.80000)}`,
+});
 
 const clientBooking = new Array(CLIENT_COUNT).fill(null).map(() => createClient());
 
-console.log(clientBooking);
+clientBooking;
+// console.log(clientBooking);
