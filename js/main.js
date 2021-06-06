@@ -86,5 +86,5 @@ const createClient = () => ({
 
 const clientBooking = new Array(CLIENT_COUNT).fill(null).map(() => createClient());
 
-// clientBooking;
-console.log(clientBooking);
+clientBooking;
+// console.log(clientBooking);
