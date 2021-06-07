@@ -6,9 +6,9 @@ function randomNumber(min, max) {
   max = Math.abs(max);
 
   if (max <= min) {
-    max = min + 1;
+    max = min + 2;
   }
-  return Math.trunc(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
@@ -55,25 +55,28 @@ const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
 const CLIENT_COUNT = 10;
 const getRandomArrayElements = (elements) => elements[Math.floor(Math.random() * elements.length)];
 
+function randomArrayLenght(arr) {
+  return arr.slice(0, randomNumber(0, arr.length));
+}
 
 const createClient = () => ({
-  author :{
+  author: {
     avatar: getRandomArrayElements(AVATAR),
   },
-  offer :{
+  offer: {
     title: getRandomArrayElements(TITLE),
-    address: `${locationX } ${locationY}`,
+    address: `${locationX} ${locationY}`,
     price: randomNumber(priceRangeMin, priceRangeMax),
     type: getRandomArrayElements(TYPE),
     rooms: randomNumber(roomRangeMin, roomRangeMax),
     guests: randomNumber(guestRangeMin, guestRangeMax),
     checkin: getRandomArrayElements(CHECKIN),
     checkout: getRandomArrayElements(CHECKOUT),
-    features: getRandomArrayElements(FEATURES),
+    features: randomArrayLenght(FEATURES),
     description: getRandomArrayElements(DESCRIPTION),
-    photos: getRandomArrayElements(PHOTOS),
+    photos: randomArrayLenght(PHOTOS),
   },
-  location:{
+  location: {
     lat: locationX,
     lng: locationY,
   },
@@ -81,7 +84,4 @@ const createClient = () => ({
 
 const clientBooking = new Array(CLIENT_COUNT).fill(null).map(() => createClient());
 
-
 clientBooking;
-
-
