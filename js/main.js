@@ -28,17 +28,15 @@ const AVATAR = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars
 
 const TITLE = ['Бронирование номера', 'Аренда квартиры', 'Аренда дома'];
 
-const locationX = numberFloat(35.65000, 35.70000, 5);
-const locationY = numberFloat(139.00000, 139.80000, 5);
 
-const priceRangeMin = 1;
-const priceRangeMax = 300;
+const PRICEMIN = 1;
+const PRICEMAX = 300;
 
-const guestRangeMin = 1;
-const guestRangeMax = 10;
+const GUESTMIN = 1;
+const GUESTMAX = 10;
 
-const roomRangeMin = 1;
-const roomRangeMax = 5;
+const ROOMMIN = 1;
+const ROOMMAX = 5;
 
 const TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
@@ -53,34 +51,38 @@ const DESCRIPTION = ['Квартира для айтишников с быстр
 const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
 const CLIENT_COUNT = 10;
-const getRandomArrayElements = (elements) => elements[Math.floor(Math.random() * elements.length)];
+const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
 
 function randomArrayLenght(arr) {
-  return arr.slice(0, randomNumber(0, arr.length));
+  return arr.slice(0, randomNumber(1, arr.length));
 }
 
-const createClient = () => ({
-  author: {
-    avatar: getRandomArrayElements(AVATAR),
-  },
-  offer: {
-    title: getRandomArrayElements(TITLE),
-    address: `${locationX} ${locationY}`,
-    price: randomNumber(priceRangeMin, priceRangeMax),
-    type: getRandomArrayElements(TYPE),
-    rooms: randomNumber(roomRangeMin, roomRangeMax),
-    guests: randomNumber(guestRangeMin, guestRangeMax),
-    checkin: getRandomArrayElements(CHECKIN),
-    checkout: getRandomArrayElements(CHECKOUT),
-    features: randomArrayLenght(FEATURES),
-    description: getRandomArrayElements(DESCRIPTION),
-    photos: randomArrayLenght(PHOTOS),
-  },
-  location: {
-    lat: locationX,
-    lng: locationY,
-  },
-});
+const createClient = () => {
+  const locationX = numberFloat(35.65000, 35.70000, 5);
+  const locationY = numberFloat(139.00000, 139.80000, 5);
+  return {
+    author: {
+      avatar: getRandomArrayElement(AVATAR),
+    },
+    offer: {
+      title: getRandomArrayElement(TITLE),
+      address: `${locationX} ${locationY}`,
+      price: randomNumber(PRICEMIN, PRICEMAX),
+      type: getRandomArrayElement(TYPE),
+      rooms: randomNumber(ROOMMIN, ROOMMAX),
+      guests: randomNumber(GUESTMIN, GUESTMAX),
+      checkin: getRandomArrayElement(CHECKIN),
+      checkout: getRandomArrayElement(CHECKOUT),
+      features: randomArrayLenght(FEATURES),
+      description: getRandomArrayElement(DESCRIPTION),
+      photos: randomArrayLenght(PHOTOS),
+    },
+    location: {
+      lat: locationX,
+      lng: locationY,
+    },
+  };
+};
 
 const clientBooking = new Array(CLIENT_COUNT).fill(null).map(() => createClient());
 
