@@ -1,7 +1,4 @@
-//  Подсмотренно в MDN
-
-function randomNumber(min, max) {
-  // Преобразование отрицательных чисел в положительные...
+function getrandomNumber(min, max) {
   min = Math.abs(min);
   max = Math.abs(max);
 
@@ -11,8 +8,7 @@ function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-function numberFloat(min, max, rounding) {
+function getnumberFloat(min, max, rounding) {
   min = Math.abs(min);
   max = Math.abs(max);
   if (max <= min) {
@@ -22,10 +18,11 @@ function numberFloat(min, max, rounding) {
 }
 
 function randomArrayLenght(arr) {
-  return arr.slice(0, randomNumber(1, arr.length));
+  return arr.slice(0, getrandomNumber(1, arr.length));
 }
 
 const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
 
-export { randomNumber, numberFloat, randomArrayLenght, getRandomArrayElement };
+
+export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement };
 

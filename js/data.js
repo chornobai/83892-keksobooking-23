@@ -1,6 +1,6 @@
 const AVATAR = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
 
-const TITLE = ['Бронирование номера', 'Аренда квартиры', 'Аренда дома'];
+const TITLE = ['Бронирование номера', 'Аренда квартиры', 'Аренда дома', 'Аренда дворца'];
 
 
 const PRICEMIN = 1;
