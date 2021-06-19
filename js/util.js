@@ -22,7 +22,25 @@ function randomArrayLenght(arr) {
 }
 
 const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
-
-
-export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement };
+function renderImages(array, container) {
+  container.innerHTML = '';
+  array.forEach((item) => {
+    const newImage = document.createElement('img');
+    newImage.classList.add('popup__photo');
+    newImage.src = item;
+    newImage.alt = 'Фотография жилья';
+    newImage.width = 45;
+    newImage.height = 40;
+    container.appendChild(newImage);
+  });
+}
+function renderFeature (array, container){
+  container.innerHTML='';
+  array.forEach((item) => {
+    const newFeatureItem = document.createElement('li');
+    newFeatureItem.classList.add('popup__feature', `popup__feature--${item}`);
+    container.appendChild(newFeatureItem);
+  });
+}
+export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement,renderImages, renderFeature};
 

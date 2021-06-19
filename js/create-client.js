@@ -29,4 +29,4 @@ const createClient = () => {
 };
 
 const createClients=()=> new Array(CLIENT_COUNT).fill(null).map(() => createClient());
-export { createClients };
+export { createClients,createClient };
