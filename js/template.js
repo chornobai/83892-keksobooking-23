@@ -1,5 +1,5 @@
 
-import { createClients} from './create-client.js';
+import { createClients } from './create-client.js';
 import { renderImages, renderFeature } from './util.js';
 const testblock = document.querySelector('.map__canvas');
 const templateCard = document.querySelector('#card').content.querySelector('.popup');
@@ -16,8 +16,8 @@ const clientOrderType = {
 
 const clientCardsFragment = document.createDocumentFragment();
 
-const renderCardTemplate =  (cards) =>{
- cards.forEach((offer) => {
+const renderCardTemplate = (cards) => {
+  cards.forEach((offer) => {
     const clientElement = templateCard.cloneNode(true);
     clientElement.querySelector('.popup__avatar').src = offer.author.avatar;
     clientElement.querySelector('.popup__title').textContent = offer.offer.title;
@@ -42,9 +42,9 @@ const renderCardTemplate =  (cards) =>{
 
   return testblock.appendChild(clientCardsFragment);
 
-}
+};
 
-export{renderCardTemplate,clientCards};
+export { renderCardTemplate, clientCards };
 
 // clientCards.forEach((offer) => {
 //   const clientElement = templateCard.cloneNode(true);
