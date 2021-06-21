@@ -1,4 +1,6 @@
-import{createClient} from './createClientFile.js';
-const CLIENT_COUNT = 10;
-const bookingData = new Array(CLIENT_COUNT).fill(null).map(() => createClient());
-bookingData;
+import {renderCards,clientCards}from'./template.js';
+import {formDisabled, formActive} from './form.js';
+formDisabled();
+formActive();
+
+renderCards(clientCards);
