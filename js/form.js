@@ -87,7 +87,7 @@ adPrice.addEventListener('input', () => {
 
 // --- Валидация количество гостей и комнат.
 
-const ChangeRoom = (evt) => {
+const changeRoom = (evt) => {
   guestsCapacity.forEach((option) => {
     option.disabled = true;
   });
@@ -101,25 +101,27 @@ const ChangeRoom = (evt) => {
   });
 };
 
-roomsOptions.addEventListener('change', ChangeRoom);
+roomsOptions.addEventListener('change', changeRoom);
 
 // --- Синхронизация время въезда и время выезда.
 
-const CheckTime = (evt) => {
+const onTmeInChange = (evt) => {
   timeout.value = evt.target.value;
+};
+const onTimeOutChange = (evt) => {
   timein.value = evt.target.value;
 };
 
-timein.addEventListener('change', CheckTime);
-timeout.addEventListener('change', CheckTime);
+timein.addEventListener('change', onTmeInChange);
+timeout.addEventListener('change', onTimeOutChange);
 
 // --- Валидация типа жилья и цены
 
-const typePrice = (evt) => {
+const getTypePrice = (evt) => {
   adPrice.placeholder = priceTypeValue[evt.target.value];
   adPrice.min = priceTypeValue[evt.target.value];
 };
 
-adType.addEventListener('change', typePrice);
+adType.addEventListener('change', getTypePrice);
 
 export { formDisabled, formActive };
