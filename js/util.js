@@ -22,6 +22,7 @@ function randomArrayLenght(arr) {
 }
 
 const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
+
 function renderImages(array, container) {
   container.innerHTML = '';
   array.forEach((item) => {
@@ -34,6 +35,7 @@ function renderImages(array, container) {
     container.appendChild(newImage);
   });
 }
+
 function renderFeature (array, container){
   container.innerHTML='';
   array.forEach((item) => {

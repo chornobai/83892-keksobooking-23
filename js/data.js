@@ -3,7 +3,7 @@ const AVATAR = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars
 const TITLE = ['Бронирование номера', 'Аренда квартиры', 'Аренда дома', 'Аренда дворца'];
 
 
-const PRICEMIN = 1;
+const PRICEMIN = 0;
 const PRICEMAX = 300;
 
 const GUESTMIN = 1;
