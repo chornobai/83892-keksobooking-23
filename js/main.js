@@ -1,6 +1,4 @@
-import {renderCards,clientCards}from'./template.js';
-import  './form.js';
-// formDisabled();
-// formActive();
+import './template.js';
+import './form.js';
+import './map.js';
 
-renderCards(clientCards);

@@ -1,5 +1,5 @@
 import { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement } from './util.js';
-import {AVATAR,TITLE,PRICEMIN,PRICEMAX,GUESTMIN,GUESTMAX,ROOMMIN,ROOMMAX,TYPE,CHECKIN,CHECKOUT,FEATURES,DESCRIPTION,PHOTOS} from './data.js';
+import { AVATAR, TITLE, PRICEMIN, PRICEMAX, GUESTMIN, GUESTMAX, ROOMMIN, ROOMMAX, TYPE, CHECKIN, CHECKOUT, FEATURES, DESCRIPTION, PHOTOS } from './data.js';
 const CLIENT_COUNT = 10;
 const createClient = () => {
   const locationX = getnumberFloat(35.65000, 35.70000, 5);
@@ -28,5 +28,5 @@ const createClient = () => {
   };
 };
 
-const createClients=()=> new Array(CLIENT_COUNT).fill(null).map(() => createClient());
-export { createClients,createClient};
+const createClients = () => new Array(CLIENT_COUNT).fill(null).map(() => createClient());
+export { createClients, createClient };

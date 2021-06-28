@@ -1,8 +1,10 @@
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
 const MAX_PRICE_VALUE = 7;
 const form = document.querySelectorAll('form');
+const address =document.querySelector('#address');
 const formElements = document.querySelectorAll('fieldset');
 const adTitle = document.querySelector('#title');
 const adPrice = document.querySelector('#price');
@@ -124,4 +126,5 @@ const getTypePrice = (evt) => {
 
 adType.addEventListener('change', getTypePrice);
 
-export { formDisabled, formActive };
+
+export { formDisabled, formActive,address};
