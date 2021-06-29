@@ -5,7 +5,6 @@ const testBlock = document.querySelector('.map__canvas');
 const templateCard = document.querySelector('#card').content.querySelector('.popup');
 const clientCards = createClients();
 
-
 const clientOrderType = {
   palace: 'Дворец',
   flat: 'Квартирка',
@@ -15,7 +14,7 @@ const clientOrderType = {
 };
 
 
-const clientCardsFragment = document.createDocumentFragment();
+// const clientCardsFragment = document.createDocumentFragment();
 
 
 const createCard = (card) => {
@@ -37,7 +36,7 @@ const createCard = (card) => {
   const photoArr = card.offer.photos;
   renderImages(photoArr, clientListPhotos);
 
-  return clientCardsFragment.appendChild(clientElement);
+  return clientElement;
 };
 
 const renderCard = (container, card) => container.appendChild(createCard(card));
@@ -51,5 +50,5 @@ const renderCards = (array) => {
 };
 
 
-export { renderCards, clientCards };
+export { renderCards, clientCards, createCard};
 
