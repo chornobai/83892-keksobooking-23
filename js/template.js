@@ -29,12 +29,29 @@ const createCard = (card) => {
 
   const clientListFeatures = clientElement.querySelector('.popup__features');
   const feature = card.offer.features;
-  renderFeature(feature, clientListFeatures);
 
-  clientElement.querySelector('.popup__description').textContent = card.offer.description;
+  if (!feature) {
+    clientListFeatures.remove();
+  } else {
+    renderFeature(feature, clientListFeatures);
+  }
+
+
+  if (!card.offer.description) {
+    clientElement.querySelector('.popup__description').remove();
+  } else {
+    clientElement.querySelector('.popup__description').textContent = card.offer.description;
+  }
+
+
   const clientListPhotos = clientElement.querySelector('.popup__photos');
   const photoArr = card.offer.photos;
-  renderImages(photoArr, clientListPhotos);
+
+  if (!photoArr) {
+    clientListPhotos.remove();
+  } else {
+    renderImages(photoArr, clientListPhotos);
+  }
 
   return clientElement;
 };
@@ -50,5 +67,5 @@ const renderCards = (array) => {
 };
 
 
-export { renderCards, clientCards, createCard};
+export { renderCards, clientCards, createCard };
 
