@@ -1,14 +1,13 @@
 import { startCoordinatesTokyo } from './map.js';
+import { messageErrorTemplate, messageSuccessTemplate, showMessage } from './message.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
 const MAX_PRICE_VALUE = 7;
-const messageFragment = document.createDocumentFragment();
 const adForm = document.querySelector('.ad-form');
 const resetButton = adForm.querySelector('.ad-form__reset');
-const messageSuccessTemplate = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-const messageErrorTemplate = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+
 const form = document.querySelectorAll('form');
 const address = document.querySelector('#address');
 const formElements = document.querySelectorAll('fieldset');
@@ -19,14 +18,6 @@ const roomsOptions = document.querySelector('#room_number');
 const timein = document.querySelector('#timein');
 const timeout = document.querySelector('#timeout');
 const guestsCapacity = document.querySelector('#capacity').querySelectorAll('option');
-
-const messageSuccess = messageFragment.appendChild(messageSuccessTemplate);
-document.body.appendChild(messageSuccess);
-messageSuccess.classList.add('visually-hidden');
-
-const messageError = messageFragment.appendChild(messageErrorTemplate);
-document.body.appendChild(messageError);
-messageError.classList.add('visually-hidden');
 
 
 const valueForRooms = {
@@ -144,25 +135,6 @@ adType.addEventListener('change', getTypePrice);
 
 // --- Отправка формы
 
-
-const showMessage = (element) => {
-  element.classList.remove('visually-hidden');
-};
-
-const closeMessage = (element) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      element.classList.add('visually-hidden');
-    }
-  });
-  document.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    element.classList.add('visually-hidden');
-  });
-};
-
-
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
@@ -175,16 +147,15 @@ adForm.addEventListener('submit', (evt) => {
     },
   ).then((response) => {
     if (response.ok) {
-      showMessage(messageSuccess);
-      closeMessage(messageSuccess);
+      showMessage(messageSuccessTemplate);
       adForm.reset();
       startCoordinatesTokyo();
-    }
+    } else { showMessage(messageErrorTemplate); }
   })
     .catch(() => {
-      showMessage(messageError);
-      closeMessage(messageError);
+      showMessage(messageErrorTemplate);
     });
+
 });
 
 // ---Сброс формы по кнопке

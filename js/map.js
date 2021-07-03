@@ -28,7 +28,7 @@ const centerTokyo = {
 };
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: '/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -59,7 +59,7 @@ const markerGroup = L.layerGroup().addTo(map);
 const createMarker = (point) => {
 
   const icon = L.icon({
-    iconUrl: '../img/pin.svg',
+    iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
@@ -93,22 +93,7 @@ const createMarkers = (array) => {
 
 export { createMarkers, startCoordinatesTokyo };
 
-
 // markerGroup.clearLayers(); очистить слой
-
-
-// Ресет
-// resetButton.addEventListener('click', () => {
-//   mainPinMarker.setLatLng({
-//     lat: 59.96831,
-//     lng: 30.31748,
-//   });
-
-//   map.setView({
-//     lat: 59.96831,
-//     lng: 30.31748,
-//   }, 16);
-// });
 
 // Показать часть меток
 // nextButton.addEventListener('click', () => {

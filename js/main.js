@@ -1,5 +1,4 @@
-
-
+import './message.js';
 import { createMarkers } from './map.js';
 const adsCount = 10;
 fetch('https://23.javascript.pages.academy/keksobooking/data')

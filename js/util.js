@@ -44,5 +44,6 @@ function renderFeature (array, container){
     container.appendChild(newFeatureItem);
   });
 }
+
 export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement,renderImages, renderFeature};
 
