@@ -1,21 +1,59 @@
-const messageSuccessTemplate = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-const messageErrorTemplate = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+import { isEscEvent } from './util.js';
+const renderErrorMesssage = () => {
+  const errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+  const errorButton = errorMessage.querySelector('.error__button');
 
+  document.body.appendChild(errorMessage);
 
-const showMessage = (element) => {
-  document.body.appendChild(element);
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      element.classList.add('visually-hidden');
-    }
-  });
-  document.addEventListener('click', (evt) => {
+  const onMessageClick = (evt) => {
     evt.preventDefault();
-    element.classList.add('visually-hidden');
-  });
+    errorMessage.remove();
+    document.removeEventListener('click', (onMessageClick));
+  };
+
+  const onEscapeClick = (evt) => {
+    evt.preventDefault();
+    if (isEscEvent) {
+      errorMessage.remove();
+      document.removeEventListener('keydown', (onEscapeClick));
+    }
+  };
+
+  const onErrorButtonClick = (evt) => {
+    evt.preventDefault();
+    errorMessage.remove();
+    errorButton.removeEventListener('click', (onErrorButtonClick));
+  };
+
+  document.addEventListener('click', (onMessageClick));
+  document.addEventListener('keydown', (onEscapeClick));
+  errorButton.addEventListener('click', (onErrorButtonClick));
+
 };
 
+const renderSuccessMesssage = () => {
+  const successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 
-export {showMessage, messageSuccessTemplate, messageErrorTemplate};
+  document.body.appendChild(successMessage);
+
+  const onMessageClick = (evt) => {
+    evt.preventDefault();
+    successMessage.remove();
+    document.removeEventListener('click', (onMessageClick));
+  };
+
+  const onEscapeClick = (evt) => {
+    evt.preventDefault();
+    if (isEscEvent) {
+      successMessage.remove();
+      document.removeEventListener('keydown', (onEscapeClick));
+    }
+  };
+
+
+  document.addEventListener('click', (onMessageClick));
+  document.addEventListener('keydown', (onEscapeClick));
+};
+
+export { renderErrorMesssage, renderSuccessMesssage };
 

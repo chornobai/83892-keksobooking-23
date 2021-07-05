@@ -1,5 +1,7 @@
+import { sendData } from './api.js';
 import { startCoordinatesTokyo } from './map.js';
-import { messageErrorTemplate, messageSuccessTemplate, showMessage } from './message.js';
+import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
+
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -137,28 +139,16 @@ adType.addEventListener('change', getTypePrice);
 
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const formData = new FormData(evt.target);
 
-  fetch(
-    'https://23.javascript.pages.academy/keksobooking',
-    {
-      method: 'POST',
-      body: formData,
-    },
-  ).then((response) => {
-    if (response.ok) {
-      showMessage(messageSuccessTemplate);
-      adForm.reset();
-      startCoordinatesTokyo();
-    } else { showMessage(messageErrorTemplate); }
-  })
-    .catch(() => {
-      showMessage(messageErrorTemplate);
-    });
-
+  sendData(
+    () => (renderSuccessMesssage(),adForm.reset(), startCoordinatesTokyo()),
+    () => (renderErrorMesssage(),startCoordinatesTokyo()),
+    new FormData(evt.target),
+  );
 });
 
 // ---Сброс формы по кнопке
+
 const resetForm = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -166,6 +156,7 @@ const resetForm = () => {
     startCoordinatesTokyo();
   });
 };
+
 resetForm();
 
-export { formDisabled, formActive, address };
+export { formDisabled, formActive, address};

@@ -45,5 +45,8 @@ function renderFeature (array, container){
   });
 }
 
-export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement,renderImages, renderFeature};
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+
+export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement,renderImages, renderFeature, isEscEvent};
 
