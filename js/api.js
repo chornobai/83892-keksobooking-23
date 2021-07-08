@@ -1,11 +1,16 @@
-const getData = (onSucces) => {
+// --- Получение данных
+const getData = (onSucces, onFail) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((ads) => {
       onSucces(ads);
+    })
+    .catch(() => {
+      onFail();
     });
 };
 
+// --- Отправка данных
 const sendData = (onSucces, onFail, body) => {
 
   fetch(

@@ -1,3 +1,4 @@
+// --- Целое случайное число
 function getrandomNumber(min, max) {
   min = Math.abs(min);
   max = Math.abs(max);
@@ -7,7 +8,7 @@ function getrandomNumber(min, max) {
   }
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
+// --- Дробное случайное число
 function getnumberFloat(min, max, rounding) {
   min = Math.abs(min);
   max = Math.abs(max);
@@ -17,12 +18,15 @@ function getnumberFloat(min, max, rounding) {
   return (Math.random() * (max - min + 1) + min).toFixed(rounding);
 }
 
+//  Случайная длинна массива
 function randomArrayLenght(arr) {
   return arr.slice(0, getrandomNumber(1, arr.length));
 }
 
+//  Случайный элемент из массива
 const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
 
+//  Отрисовка фотографий в обьявлений
 function renderImages(array, container) {
   container.innerHTML = '';
   array.forEach((item) => {
@@ -36,6 +40,7 @@ function renderImages(array, container) {
   });
 }
 
+// Отрисовка опций жилья для обьявления
 function renderFeature (array, container){
   container.innerHTML='';
   array.forEach((item) => {
@@ -45,8 +50,27 @@ function renderFeature (array, container){
   });
 }
 
+//  Если нажат ESC
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
+function debounce (callback, timeoutDelay = 500) {
+  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
+  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  let timeoutId;
 
-export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement,renderImages, renderFeature, isEscEvent};
+  return (...rest) => {
+    // Перед каждым новым вызовом удаляем предыдущий таймаут,
+    // чтобы они не накапливались
+    clearTimeout(timeoutId);
+
+    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
+    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+  };
+}
+
+
+export { getrandomNumber, getnumberFloat, randomArrayLenght, getRandomArrayElement,renderImages, renderFeature, isEscEvent, debounce};
 

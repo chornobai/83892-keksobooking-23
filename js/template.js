@@ -13,10 +13,7 @@ const clientOrderType = {
   hotel: 'Отель',
 };
 
-
-// const clientCardsFragment = document.createDocumentFragment();
-
-
+// --- Заполнение одного обьявления по шаблону
 const createCard = (card) => {
   const clientElement = templateCard.cloneNode(true);
   clientElement.querySelector('.popup__avatar').src = card.author.avatar;
@@ -29,21 +26,18 @@ const createCard = (card) => {
 
   const clientListFeatures = clientElement.querySelector('.popup__features');
   const feature = card.offer.features;
-
+  // --- Если нет данных для заполнения шаблона
   if (!feature) {
     clientListFeatures.remove();
   } else {
     renderFeature(feature, clientListFeatures);
   }
 
-
   if (!card.offer.description) {
     clientElement.querySelector('.popup__description').remove();
   } else {
     clientElement.querySelector('.popup__description').textContent = card.offer.description;
   }
-
-
   const clientListPhotos = clientElement.querySelector('.popup__photos');
   const photoArr = card.offer.photos;
 
@@ -52,18 +46,18 @@ const createCard = (card) => {
   } else {
     renderImages(photoArr, clientListPhotos);
   }
-
   return clientElement;
 };
 
+// --- Отрисовка одного обьявления
 const renderCard = (container, card) => container.appendChild(createCard(card));
 
+//  --- Отрисовка обьявлений
 const renderCards = (array) => {
   array.forEach((item) => {
     createCard(item);
     renderCard(testBlock, item);
   });
-
 };
 
 
