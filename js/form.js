@@ -115,7 +115,6 @@ guestSelected[2].setAttribute('selected', 'selected');
 roomNumber.addEventListener('change', changeRoom);
 
 
-
 // --- Синхронизация время въезда и время выезда.
 
 const onTmeInChange = (evt) => {
@@ -143,15 +142,15 @@ adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   sendData(
-    () => (renderSuccessMesssage(),adForm.reset(), startCoordinatesTokyo()),
-    () => (renderErrorMesssage(),startCoordinatesTokyo()),
+    () => (renderSuccessMesssage(), adForm.reset(), startCoordinatesTokyo()),
+    () => (renderErrorMesssage(), startCoordinatesTokyo()),
     new FormData(evt.target),
   );
 });
 
 // ---Сброс формы по кнопке
 
-const onResetButton= () => {
+const onResetButton = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     adForm.reset();
@@ -161,4 +160,4 @@ const onResetButton= () => {
   });
 };
 
-export { formDisabled, formActive, address, onResetButton};
+export { formDisabled, formActive, address, onResetButton };
