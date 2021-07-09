@@ -48,14 +48,14 @@ const mainPinMarker = L.marker(
 );
 
 //  --- Заполнение строки адресс в форме обьявлений
-const startCoordinatesTokyo = () => {
+const startCoordinates = () => {
   address.value = `Coordinates: ${TOKYO_LATITUDE}, ${TOKYO_LONGITUDE}`;
 };
 
 // --- Отрисовка главного маркера на карте
 mainPinMarker.addTo(map);
 
-startCoordinatesTokyo();
+startCoordinates();
 
 // Заполнение координатами строки адресс при движении главного маркера
 mainPinMarker.on('moveend', (evt) => {
@@ -102,33 +102,4 @@ const removeMarkers = () => {
   });
 };
 
-
-export { createMarkers, startCoordinatesTokyo, removeMarkers, setupMap };
-
-
-// const createMarker = (point) => {
-
-//   const icon = L.icon({
-//     iconUrl: 'img/pin.svg',
-//     iconSize: [pinWidth, pinHeight],
-//     iconAnchor: [pinWidth / 2, pinHeight],
-//   });
-
-//   const marker = L.marker(
-//     {
-//       lat: point.location.lat,
-//       lng: point.location.lng,
-//     },
-//     {
-//       icon,
-//     },
-//   );
-
-//   marker
-//     .addTo(markerGroup)
-//     .bindPopup(createCard(point),
-//       {
-//         keepInView: true,
-//       },
-//     );
-// };
+export { createMarkers, startCoordinates, removeMarkers, setupMap };

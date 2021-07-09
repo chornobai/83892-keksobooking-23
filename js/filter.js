@@ -6,10 +6,10 @@ const DEFAULT = 'any';
 const DELAY = 500;
 const priceValue = {
   LOW: 10000,
-  UP: 50000,
+  HIGHT: 50000,
 };
 const filterForm = document.querySelector('.map__filters');
-
+const featureList = filterForm.querySelectorAll('.map__checkbox');
 const housingType = filterForm.querySelector('#housing-type');
 const filterPrice = filterForm.querySelector('#housing-price');
 const filterRoom = filterForm.querySelector('#housing-rooms');
@@ -19,41 +19,49 @@ const filterGuests = filterForm.querySelector('#housing-guests');
 const filterByType = (ad) => housingType.value === DEFAULT || ad.offer.type === housingType.value;
 
 //  -- Фильтер по цене
-const filterByPrice = function (ads) {
-  return ads.filter((ad) => {
-    const priceRange = {
-      'low': ad.offer.price < priceValue.LOW,
-      'middle': ad.offer.price >= priceValue.LOW && ad.offer.price <= priceValue.UP,
-      'high': ad.offer.price > priceValue.UP,
-    };
-    return priceRange[filterPrice];
-  });
+
+const filterByPrice = (ad) => {
+  switch (filterPrice.value){
+    case 'any':
+      return true;
+    case 'low':
+      return ad.offer.price < priceValue.LOW;
+    case 'middle':
+      return (priceValue.LOW < ad.offer.price) && (ad.offer.price < priceValue.HIGHT);
+    case 'high':
+      return ad.offer.price > priceValue.HIGHT;
+    default:
+      return false;
+  }
 };
+
 
 //  -- Фильтер по числу комнат
 const filterByRooms = (ad) => filterRoom.value === DEFAULT || Number(filterRoom.value) === ad.offer.rooms;
 
 //  -- Фильтер по числу гостей
-const filterByGuests = (ad) => filterGuests.value === DEFAULT ? true : parseInt(filterGuests.value, 10) <= ad.offer.guests;
+const filterByGuests = (ad) => filterGuests.value === DEFAULT ? true : Number(filterGuests.value) === ad.offer.guests;
 
 
 //  -- Фильтер по дополнительным опциям
-const filterByFeatures = (ad) => {
-  const featuresChecked = filterForm.querySelectorAll('.map__checkbox:checked');
-  let count = 0;
-  featuresChecked.forEach((feature) => {
-    if (ad.offer.features.includes(feature.value)) {
-      count++;
+
+const filterByFeatures = (ad) => Array.from(featureList)
+  .every((checkbox) => {
+    if (!checkbox.checked) {
+      return true;
     }
+    if (!ad.offer.features) {
+      return false;
+    }
+    return ad.offer.features.includes(checkbox.value);
   });
-  return count === featuresChecked.length;
-};
+
 
 // --- Отфильтрованный массив с условиями
 
 const getFilteredAds = (ads) => {
   const filteredAds = ads.filter((ad) => (filterByType(ad) &&
-    filterByPrice(ads) &&
+    filterByPrice(ad) &&
     filterByRooms(ad) &&
     filterByGuests(ad) &&
     filterByFeatures(ad)

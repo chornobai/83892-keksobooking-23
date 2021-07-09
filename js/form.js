@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { startCoordinatesTokyo } from './map.js';
+import { startCoordinates } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { filterForm } from './filter.js';
 
@@ -142,8 +142,8 @@ adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   sendData(
-    () => (renderSuccessMesssage(), adForm.reset(), startCoordinatesTokyo()),
-    () => (renderErrorMesssage(), startCoordinatesTokyo()),
+    () => (renderSuccessMesssage(), adForm.reset(), startCoordinates()),
+    () => (renderErrorMesssage(), startCoordinates()),
     new FormData(evt.target),
   );
 });
@@ -154,7 +154,7 @@ const onResetButton = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     adForm.reset();
-    startCoordinatesTokyo();
+    startCoordinates();
     filterForm.reset();
 
   });
