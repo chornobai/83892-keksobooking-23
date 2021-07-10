@@ -1,7 +1,7 @@
 import { sendData } from './api.js';
-import { startCoordinatesTokyo } from './map.js';
+import { startCoordinates } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
-
+import { filterForm } from './filter.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -9,18 +9,18 @@ const MIN_PRICE_VALUE = 0;
 const MAX_PRICE_VALUE = 7;
 const adForm = document.querySelector('.ad-form');
 const resetButton = adForm.querySelector('.ad-form__reset');
-
 const form = document.querySelectorAll('form');
 const address = document.querySelector('#address');
 const formElements = document.querySelectorAll('fieldset');
 const adTitle = document.querySelector('#title');
 const adPrice = document.querySelector('#price');
 const adType = document.querySelector('#type');
-const roomsOptions = document.querySelector('#room_number');
+const roomNumber = document.querySelector('#room_number');
 const timein = document.querySelector('#timein');
 const timeout = document.querySelector('#timeout');
-const guestsCapacity = document.querySelector('#capacity').querySelectorAll('option');
+const guestSelected = document.querySelector('#capacity');
 
+const guestsCapacity = document.querySelector('#capacity').querySelectorAll('option');
 
 const valueForRooms = {
   1: [1],
@@ -36,7 +36,7 @@ const priceTypeValue = {
   palace: 10000,
 };
 
-//// Активация и Деактивация формы
+//// Активация и деактивация страницы
 
 const formDisabled = () => {
 
@@ -59,7 +59,7 @@ const formActive = () => {
     item.removeAttribute('disabled');
   });
 };
-// --------------------------------
+
 
 // ---Валидация формы
 
@@ -111,8 +111,9 @@ const changeRoom = (evt) => {
     });
   });
 };
+guestSelected[2].setAttribute('selected', 'selected');
+roomNumber.addEventListener('change', changeRoom);
 
-roomsOptions.addEventListener('change', changeRoom);
 
 // --- Синхронизация время въезда и время выезда.
 
@@ -141,22 +142,22 @@ adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   sendData(
-    () => (renderSuccessMesssage(),adForm.reset(), startCoordinatesTokyo()),
-    () => (renderErrorMesssage(),startCoordinatesTokyo()),
+    () => (renderSuccessMesssage(), adForm.reset(), startCoordinates()),
+    () => (renderErrorMesssage(), startCoordinates()),
     new FormData(evt.target),
   );
 });
 
 // ---Сброс формы по кнопке
 
-const resetForm = () => {
+const onResetButton = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     adForm.reset();
-    startCoordinatesTokyo();
+    startCoordinates();
+    filterForm.reset();
+
   });
 };
 
-resetForm();
-
-export { formDisabled, formActive, address};
+export { formDisabled, formActive, address, onResetButton };

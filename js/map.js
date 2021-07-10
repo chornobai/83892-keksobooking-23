@@ -1,42 +1,45 @@
-
 import { createCard } from './template.js';
-import { formActive, formDisabled, address } from './form.js';
-// const resetButton = document.querySelector('#reset');
+import { formActive, address } from './form.js';
+const TOKYO_LATITUDE = 35.69493;
+const TOKYO_LONGITUDE = 139.75459;
+const mainPinWidth = 50;
+const mainPinHeight = 50;
+const pinWidth = 40;
+const pinHeight = 40;
+const markersArray = [];
+const map = L.map('map-canvas');
 
-formDisabled();
+// --- Загрузка карты
+const setupMap = () => {
+  map
+    .on('load', () => {
+      formActive();
+    })
+    .setView({
+      lat: TOKYO_LATITUDE,
+      lng: TOKYO_LONGITUDE,
+    }, 13);
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    formActive();
-    // console.log('Карта инициsализирована');
-  })
-  .setView({
-    lat: 35.69493,
-    lng: 139.75459,
-  }, 13);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
-  },
-).addTo(map);
-
-const centerTokyo = {
-  lat: 35.69493,
-  lng: 139.75459,
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
+    },
+  ).addTo(map);
 };
 
+// --- Иконка для главного маркера
 const mainPinIcon = L.icon({
   iconUrl: '/img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [mainPinWidth, mainPinHeight],
+  iconAnchor: [mainPinWidth / 2, mainPinHeight],
 });
 
+// --- Коодинаты главного маркера
 const mainPinMarker = L.marker(
   {
-    lat: centerTokyo.lat,
-    lng: centerTokyo.lng,
+    lat: TOKYO_LATITUDE,
+    lng: TOKYO_LONGITUDE,
   },
   {
     draggable: true,
@@ -44,62 +47,59 @@ const mainPinMarker = L.marker(
   },
 );
 
-const startCoordinatesTokyo = () => {
-  address.value = `Coordinates: ${centerTokyo.lat}, ${centerTokyo.lng}`;
+//  --- Заполнение строки адресс в форме обьявлений
+const startCoordinates = () => {
+  address.value = `Coordinates: ${TOKYO_LATITUDE}, ${TOKYO_LONGITUDE}`;
 };
+
+// --- Отрисовка главного маркера на карте
 mainPinMarker.addTo(map);
-startCoordinatesTokyo();
+
+startCoordinates();
+
+// Заполнение координатами строки адресс при движении главного маркера
 mainPinMarker.on('moveend', (evt) => {
-  address.value = evt.target.getLatLng();
+  address.value = `Coordinates: ${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 const markerGroup = L.layerGroup().addTo(map);
 
+// --- Отрисовка обявлений на карте
+const createMarkers = (array) => {
+  array.forEach((point) => {
+    const icon = L.icon({
+      iconUrl: 'img/pin.svg',
+      iconSize: [pinWidth, pinHeight],
+      iconAnchor: [pinWidth / 2, pinHeight],
+    });
 
-const createMarker = (point) => {
-
-  const icon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const marker = L.marker(
-    {
-      lat: point.location.lat,
-      lng: point.location.lng,
-    },
-    {
-      icon,
-    },
-  );
-
-  marker
-    .addTo(markerGroup)
-    .bindPopup(createCard(point),
+    const marker = L.marker(
       {
-        keepInView: true,
+        lat: point.location.lat,
+        lng: point.location.lng,
+      },
+      {
+        icon,
       },
     );
 
+    marker
+      .addTo(markerGroup)
+      .bindPopup(createCard(point),
+        {
+          keepInView: true,
+        },
+      );
+    markersArray.push(marker);
+  });
+
 };
 
-const createMarkers = (array) => {
-  array.forEach((point) => {
-    createMarker(point);
+// --- Удаление обьявлений
+const removeMarkers = () => {
+  markersArray.forEach((item) => {
+    item.remove();
   });
 };
 
-
-export { createMarkers, startCoordinatesTokyo };
-
-// markerGroup.clearLayers(); очистить слой
-
-// Показать часть меток
-// nextButton.addEventListener('click', () => {
-//   markerGroup.clearLayers();
-//   points.slice(points.length / 2).forEach((point) => {
-//     createMarker(point);
-//   });
-//   nextButton.remove();
-// });
+export { createMarkers, startCoordinates, removeMarkers, setupMap };

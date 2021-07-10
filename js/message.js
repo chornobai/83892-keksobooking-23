@@ -1,4 +1,23 @@
 import { isEscEvent } from './util.js';
+
+// --- Ошибка загрузки данных
+const renderErrorMessageGetData = () => {
+  const errorMessageGet = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+  errorMessageGet.querySelector('.success').style.backgroundColor = 'orange';
+  errorMessageGet.querySelector('.success__message').tetxContent = '"Ошибка загрузки данных, попробуйте еще раз"';
+
+  document.body.appendChild(errorMessageGet);
+
+  const onMessageClick = (evt) => {
+    evt.preventDefault();
+    errorMessageGet.remove();
+    document.removeEventListener('click', (onMessageClick));
+  };
+
+  document.addEventListener('click', (onMessageClick));
+};
+
+// --- Ошибка отправки формы
 const renderErrorMesssage = () => {
   const errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
   const errorButton = errorMessage.querySelector('.error__button');
@@ -31,6 +50,7 @@ const renderErrorMesssage = () => {
 
 };
 
+// --- Успешная отправка формы
 const renderSuccessMesssage = () => {
   const successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 
@@ -55,5 +75,5 @@ const renderSuccessMesssage = () => {
   document.addEventListener('keydown', (onEscapeClick));
 };
 
-export { renderErrorMesssage, renderSuccessMesssage };
+export { renderErrorMesssage, renderSuccessMesssage,renderErrorMessageGetData };
 
