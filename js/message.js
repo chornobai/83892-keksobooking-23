@@ -2,9 +2,8 @@ import { isEscEvent } from './util.js';
 
 // --- Ошибка загрузки данных
 const renderErrorMessageGetData = () => {
-  const errorMessageGet = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-  errorMessageGet.querySelector('.success').style.backgroundColor = 'orange';
-  errorMessageGet.querySelector('.success__message').tetxContent = '"Ошибка загрузки данных, попробуйте еще раз"';
+  const errorMessageGet = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+  errorMessageGet.querySelector('.error__message').textContent = 'Ошибка загрузки данных';
 
   document.body.appendChild(errorMessageGet);
 

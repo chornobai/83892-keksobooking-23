@@ -52,6 +52,11 @@ const startCoordinates = () => {
   address.value = `Coordinates: ${TOKYO_LATITUDE}, ${TOKYO_LONGITUDE}`;
 };
 
+const resetMainMarkerPosition = () => {
+  mainPinMarker.setLatLng({lat: TOKYO_LATITUDE, lng: TOKYO_LONGITUDE});
+};
+
+
 // --- Отрисовка главного маркера на карте
 mainPinMarker.addTo(map);
 
@@ -102,4 +107,4 @@ const removeMarkers = () => {
   });
 };
 
-export { createMarkers, startCoordinates, removeMarkers, setupMap };
+export { createMarkers, startCoordinates, removeMarkers, setupMap, resetMainMarkerPosition};

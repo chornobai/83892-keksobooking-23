@@ -1,7 +1,8 @@
 import { sendData } from './api.js';
-import { startCoordinates } from './map.js';
+import { startCoordinates, resetMainMarkerPosition } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { filterForm } from './filter.js';
+import { renderAds } from './main.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -154,9 +155,11 @@ const onResetButton = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     adForm.reset();
-    startCoordinates();
     filterForm.reset();
-
+    resetMainMarkerPosition();
+    startCoordinates();
+    // При сбросе заново отрисовываются обьявления
+    renderAds();
   });
 };
 

@@ -1,12 +1,14 @@
+const GET_URL = 'https://23.javascript.pages.academy/keksobooking/data';
+const SEND_URL = 'https://23.javascript.pages.academy/keksobooking';
 // --- Получение данных
-const getData = (onSucces, onFail) => {
-  fetch('https://23.javascript.pages.academy/keksobooking/data')
+const getData = (onSuccess, onFail) => {
+  fetch(GET_URL)
     .then((response) => response.json())
     .then((ads) => {
-      onSucces(ads);
+      onSuccess(ads);
     })
-    .catch(() => {
-      onFail();
+    .catch((err) => {
+      onFail(`Ошибка загрузки данных: "${err}"`);
     });
 };
 
@@ -14,7 +16,7 @@ const getData = (onSucces, onFail) => {
 const sendData = (onSucces, onFail, body) => {
 
   fetch(
-    'https://23.javascript.pages.academy/keksobooking',
+    SEND_URL,
     {
       method: 'POST',
       body,
