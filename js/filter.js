@@ -4,7 +4,7 @@ import { createMarkers } from './map.js';
 
 const DEFAULT = 'any';
 const DELAY = 500;
-const priceValue = {
+const PriceValue = {
   LOW: 10000,
   HIGHT: 50000,
 };
@@ -25,11 +25,11 @@ const filterByPrice = (ad) => {
     case 'any':
       return true;
     case 'low':
-      return ad.offer.price < priceValue.LOW;
+      return ad.offer.price < PriceValue.LOW;
     case 'middle':
-      return (priceValue.LOW < ad.offer.price) && (ad.offer.price < priceValue.HIGHT);
+      return (PriceValue.LOW < ad.offer.price) && (ad.offer.price < PriceValue.HIGHT);
     case 'high':
-      return ad.offer.price > priceValue.HIGHT;
+      return ad.offer.price > PriceValue.HIGHT;
     default:
       return false;
   }
@@ -76,6 +76,7 @@ const onFilterFormChange = (ads) => debounce((evt) => {
   const adsFiltered = getFilteredAds(ads);
   removeMarkers();
   createMarkers(adsFiltered);
+
 }, DELAY);
 
 // --- Отслеживать изменения на фильтре

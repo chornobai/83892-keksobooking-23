@@ -1,9 +1,7 @@
 
-import { createClients } from './create-client.js';
 import { renderImages, renderFeature } from './util.js';
 const testBlock = document.querySelector('.map__canvas');
 const templateCard = document.querySelector('#card').content.querySelector('.popup');
-const clientCards = createClients();
 
 const clientOrderType = {
   palace: 'Дворец',
@@ -61,5 +59,5 @@ const renderCards = (array) => {
 };
 
 
-export { renderCards, clientCards, createCard };
+export { renderCards, createCard };
 

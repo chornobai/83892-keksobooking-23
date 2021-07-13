@@ -19,9 +19,8 @@ const adType = document.querySelector('#type');
 const roomNumber = document.querySelector('#room_number');
 const timein = document.querySelector('#timein');
 const timeout = document.querySelector('#timeout');
-const guestSelected = document.querySelector('#capacity');
-
 const guestsCapacity = document.querySelector('#capacity').querySelectorAll('option');
+const guestSelected = document.querySelector('#capacity');
 
 const valueForRooms = {
   1: [1],
@@ -99,6 +98,15 @@ adPrice.addEventListener('input', () => {
 
 // --- Валидация количество гостей и комнат.
 
+
+const disableGuestsCapacity = () => {
+  guestsCapacity.forEach((option) => {
+    option.disabled = true;
+  });
+};
+
+disableGuestsCapacity();
+
 const changeRoom = (evt) => {
   guestsCapacity.forEach((option) => {
     option.disabled = true;
@@ -112,7 +120,10 @@ const changeRoom = (evt) => {
     });
   });
 };
+
 guestSelected[2].setAttribute('selected', 'selected');
+
+
 roomNumber.addEventListener('change', changeRoom);
 
 

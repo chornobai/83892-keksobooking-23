@@ -2,6 +2,7 @@ import { createCard } from './template.js';
 import { formActive, address } from './form.js';
 const TOKYO_LATITUDE = 35.69493;
 const TOKYO_LONGITUDE = 139.75459;
+const ADS_COUNT = 10;
 const mainPinWidth = 50;
 const mainPinHeight = 50;
 const pinWidth = 40;
@@ -49,7 +50,7 @@ const mainPinMarker = L.marker(
 
 //  --- Заполнение строки адресс в форме обьявлений
 const startCoordinates = () => {
-  address.value = `Coordinates: ${TOKYO_LATITUDE}, ${TOKYO_LONGITUDE}`;
+  address.value = `${TOKYO_LATITUDE}, ${TOKYO_LONGITUDE}`;
 };
 
 const resetMainMarkerPosition = () => {
@@ -64,14 +65,15 @@ startCoordinates();
 
 // Заполнение координатами строки адресс при движении главного маркера
 mainPinMarker.on('moveend', (evt) => {
-  address.value = `Coordinates: ${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
+  address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 const markerGroup = L.layerGroup().addTo(map);
 
 // --- Отрисовка обявлений на карте
 const createMarkers = (array) => {
-  array.forEach((point) => {
+  const renderArray = array.slice(0, ADS_COUNT);
+  renderArray.forEach((point) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
       iconSize: [pinWidth, pinHeight],
