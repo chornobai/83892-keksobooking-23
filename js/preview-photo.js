@@ -1,10 +1,11 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const DEFAULT_AVATAR = 'img/muffin-grey.svg';
 const fileChooser = document.querySelector('.ad-form__field input[type=file]');
 const preview = document.querySelector('.ad-form-header__preview').querySelector('img');
 const loaderHousePicture = document.querySelector('.ad-form__upload input[type=file]');
 const previewHousePicture = document.querySelector('.ad-form__photo');
 
-const avatarLoad = (loadingInput, previewItem) => {
+const setAvatar = (loadingInput, previewItem) => {
   loadingInput.addEventListener('change', () => {
     const file = loadingInput.files[0];
     const fileName = file.name.toLowerCase();
@@ -25,7 +26,7 @@ const avatarLoad = (loadingInput, previewItem) => {
 };
 
 const onAvatarLoading = () => {
-  avatarLoad(fileChooser, preview);
+  setAvatar(fileChooser, preview);
 };
 
 
@@ -64,3 +65,9 @@ const onhousePhotoLoad = () => {
 loaderHousePicture.addEventListener('change', onhousePhotoLoad());
 fileChooser.addEventListener('change', onAvatarLoading());
 
+const resetPreviewPhoto = () => {
+  preview.src = DEFAULT_AVATAR;
+  previewHousePicture.innerHTML = '';
+};
+
+export { resetPreviewPhoto };

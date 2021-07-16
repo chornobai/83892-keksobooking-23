@@ -17,7 +17,7 @@ const createCard = (card) => {
   clientElement.querySelector('.popup__avatar').src = card.author.avatar;
   clientElement.querySelector('.popup__title').textContent = card.offer.title;
   clientElement.querySelector('.popup__text--address').textContent = card.offer.address;
-  clientElement.querySelector('.popup__text--price').innerHTML = `${card.offer.price} ₽/ночь`;
+  clientElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
   clientElement.querySelector('.popup__type').textContent = clientOrderType[card.offer.type];
   clientElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты ${card.offer.guests} гостей`;
   clientElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin} выезд до ${card.offer.checkout}`;

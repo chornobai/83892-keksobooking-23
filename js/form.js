@@ -3,6 +3,7 @@ import { startCoordinates, resetMainMarkerPosition } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { filterForm } from './filter.js';
 import { renderAds } from './main.js';
+import { resetPreviewPhoto } from './preview-photo.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -19,8 +20,8 @@ const adType = document.querySelector('#type');
 const roomNumber = document.querySelector('#room_number');
 const timein = document.querySelector('#timein');
 const timeout = document.querySelector('#timeout');
-const guestsCapacity = document.querySelector('#capacity').querySelectorAll('option');
-const guestSelected = document.querySelector('#capacity');
+const guestsCapacity = document.querySelector('#capacity');
+const guestsCapacityOption = guestsCapacity.querySelectorAll('option');
 
 const valueForRooms = {
   1: [1],
@@ -28,6 +29,7 @@ const valueForRooms = {
   3: [1, 2, 3],
   100: [0],
 };
+
 const priceTypeValue = {
   bungalow: 0,
   flat: 1000,
@@ -79,7 +81,7 @@ adTitle.addEventListener('input', () => {
   adTitle.reportValidity();
 });
 
-// --- Валидация поля цена обьявления
+// --- Валидация поля цена
 
 adPrice.addEventListener('input', () => {
   const priceLength = adPrice.value.length;
@@ -98,21 +100,13 @@ adPrice.addEventListener('input', () => {
 
 // --- Валидация количество гостей и комнат.
 
-
-const disableGuestsCapacity = () => {
-  guestsCapacity.forEach((option) => {
+const roomValidate = (value) => {
+  guestsCapacityOption.forEach((option) => {
     option.disabled = true;
   });
-};
 
-disableGuestsCapacity();
-
-const changeRoom = (evt) => {
-  guestsCapacity.forEach((option) => {
-    option.disabled = true;
-  });
-  valueForRooms[evt.target.value].forEach((seatsAmount) => {
-    guestsCapacity.forEach((option) => {
+  valueForRooms[value].forEach((seatsAmount) => {
+    guestsCapacityOption.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
         option.selected = true;
@@ -121,11 +115,16 @@ const changeRoom = (evt) => {
   });
 };
 
-guestSelected[2].setAttribute('selected', 'selected');
+const renderRoomsNumber = () => {
+  roomValidate(Number(roomNumber.value));
+};
+renderRoomsNumber();
 
+const onRoomChange = () => {
+  renderRoomsNumber();
+};
 
-roomNumber.addEventListener('change', changeRoom);
-
+roomNumber.addEventListener('change', onRoomChange);
 
 // --- Синхронизация время въезда и время выезда.
 
@@ -169,7 +168,9 @@ const onResetButton = () => {
     filterForm.reset();
     resetMainMarkerPosition();
     startCoordinates();
+    resetPreviewPhoto();
     // При сбросе заново отрисовываются обьявления
+
     renderAds();
   });
 };

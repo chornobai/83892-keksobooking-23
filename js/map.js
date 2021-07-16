@@ -3,10 +3,11 @@ import { formActive, address } from './form.js';
 const TOKYO_LATITUDE = 35.69493;
 const TOKYO_LONGITUDE = 139.75459;
 const ADS_COUNT = 10;
-const mainPinWidth = 50;
-const mainPinHeight = 50;
-const pinWidth = 40;
-const pinHeight = 40;
+const MAIN_PIN_WIDTH = 50;
+const MAIN_PIN_HEIGHT = 50;
+const PIN_WIDTH = 40;
+const PIN_HEIGHT = 40;
+const ZOOM = 13;
 const markersArray = [];
 const map = L.map('map-canvas');
 
@@ -19,7 +20,7 @@ const setupMap = () => {
     .setView({
       lat: TOKYO_LATITUDE,
       lng: TOKYO_LONGITUDE,
-    }, 13);
+    }, ZOOM);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -32,8 +33,8 @@ const setupMap = () => {
 // --- Иконка для главного маркера
 const mainPinIcon = L.icon({
   iconUrl: '/img/main-pin.svg',
-  iconSize: [mainPinWidth, mainPinHeight],
-  iconAnchor: [mainPinWidth / 2, mainPinHeight],
+  iconSize: [MAIN_PIN_WIDTH,MAIN_PIN_HEIGHT],
+  iconAnchor: [MAIN_PIN_WIDTH / 2,MAIN_PIN_HEIGHT],
 });
 
 // --- Коодинаты главного маркера
@@ -76,8 +77,8 @@ const createMarkers = (array) => {
   renderArray.forEach((point) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
-      iconSize: [pinWidth, pinHeight],
-      iconAnchor: [pinWidth / 2, pinHeight],
+      iconSize: [PIN_WIDTH, PIN_HEIGHT],
+      iconAnchor: [PIN_WIDTH / 2, PIN_HEIGHT],
     });
 
     const marker = L.marker(
